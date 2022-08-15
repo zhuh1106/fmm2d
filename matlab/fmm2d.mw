@@ -1585,6 +1585,13 @@ end
   boxsize = zeros(1,nlevels);
   # FORTRAN pts_tree_build(double[2,ns] sources, int[1] ns, double[2,ntuse] targ, int[1] nt, int[1] idivflag, int[1] ndiv, int[1] nlmin, int[1] nlmax, int[1] ifunif, int[1] iper, int[1] nlevels, int[1] nboxes, int[1] ltree, inout int[ltree] itree, inout int[8] iptr, inout double[2,nboxes] centers, inout double[nlevels] boxsize); 
 
+  n = ns;
+  xys = sources;
+  ixy = zeros(1,n);
+  ixyse = zeros(2,nboxes);
+  # FORTRAN pts_tree_sort(int[1] n, double[2,ns] xys, int[ltree] itree, int[1] ltree, int[1] nboxes, int[1] nlevels, int[8] iptr, double[2,nboxes] centers, inout int[n] ixy, inout int[2,nboxes] ixyse); 
+  
+
   U.nlevels = nlevels;
   U.nboxes = nboxes;
   U.ltree = ltree;
@@ -1593,8 +1600,8 @@ end
   U.centers = centers;
   U.boxsize = boxsize;
 
-  varargout{1} = [];
-  varargout{2} = [];
+  varargout{1} = ixy;
+  varargout{2} = ixyse;
 end
 % ---------------------------------------------------------------------
 
